@@ -33,6 +33,9 @@ export interface Creator {
   tags: string[];       // content topics e.g. ["PLG", "SaaS Metrics", "Pricing"]
   verified: boolean;
   responseTimeHours: number; // avg hours to respond to briefs
+  watermarkNumber?: number;
+  countryFlag?: string;
+  nicheDisplay?: string;
 }
 
 // ─── Campaign Types ──────────────────────────────────────────────────────────

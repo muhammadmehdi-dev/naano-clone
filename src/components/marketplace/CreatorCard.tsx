@@ -1,187 +1,191 @@
 'use client';
 
-import React from 'react';
-import { Check, Plus, ShieldCheck, Sparkles, Eye } from 'lucide-react';
+import React, { useState } from 'react';
+import { Star, Check } from 'lucide-react';
 import type { Creator } from '@/types';
-import { formatEur, formatNumber, getFitScoreColor } from '@/lib/mock-data';
+import { formatNumber } from '@/lib/mock-data';
 
 interface CreatorCardProps {
   creator: Creator;
+  index: number;
   isSelected: boolean;
   onToggleSelect: (id: string) => void;
-  onViewDetails: (creator: Creator) => void;
+  onViewDetails?: (creator: Creator) => void;
 }
 
 export default function CreatorCard({
   creator,
+  index,
   isSelected,
   onToggleSelect,
   onViewDetails,
 }: CreatorCardProps) {
-  const fitColor = getFitScoreColor(creator.fitScore);
+  const [isStarred, setIsStarred] = useState(false);
+
+  const displayNiche = creator.nicheDisplay || creator.niche;
+  const displayNumber = creator.watermarkNumber || index + 1;
+  const flag = creator.countryFlag || '🇪🇺';
 
   return (
     <div
       className={`
-        group relative flex flex-col justify-between rounded-2xl p-5.5 transition-all duration-300
+        relative flex flex-col justify-between rounded-2xl bg-white p-5 transition-all duration-200 overflow-hidden
         ${
           isSelected
-            ? 'ring-2 ring-blue-500/80 shadow-lg shadow-blue-500/10'
-            : 'hover:border-slate-600/80 hover:shadow-xl hover:shadow-blue-950/20'
+            ? 'ring-2 ring-blue-600 shadow-md'
+            : 'border border-slate-200/90 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.04)] hover:shadow-[0_12px_24px_-4px_rgba(15,23,42,0.08)] hover:border-slate-300'
         }
       `}
-      style={{
-        background: isSelected
-          ? 'linear-gradient(145deg, rgba(26, 34, 53, 0.95) 0%, rgba(17, 24, 39, 0.98) 100%)'
-          : 'linear-gradient(145deg, rgba(17, 24, 39, 0.85) 0%, rgba(15, 23, 42, 0.85) 100%)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        border: isSelected
-          ? '1px solid rgba(59, 130, 246, 0.6)'
-          : '1px solid rgba(45, 63, 92, 0.5)',
-      }}
     >
-      {/* Top Header: Avatar, Name, Handle, Fit Score */}
-      <div>
-        <div className="flex items-start justify-between gap-3 mb-3.5">
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="relative flex-shrink-0">
-              <img
-                src={creator.avatarUrl}
-                alt={creator.name}
-                className="w-12 h-12 rounded-full object-cover ring-2 ring-slate-700/60 group-hover:ring-blue-500/50 transition-all"
-              />
-              {creator.verified && (
-                <div
-                  className="absolute -bottom-1 -right-1 w-4.5 h-4.5 rounded-full bg-blue-600 flex items-center justify-center ring-2 ring-slate-900"
-                  title="Verified LinkedIn Creator"
-                >
-                  <ShieldCheck size={11} className="text-white" />
-                </div>
-              )}
-            </div>
-
-            <div className="min-w-0">
-              <div className="flex items-center gap-1.5">
-                <h3 className="text-base font-semibold text-white tracking-tight truncate group-hover:text-blue-300 transition-colors">
-                  {creator.name}
-                </h3>
-              </div>
-              <p className="text-xs text-slate-400 truncate">{creator.handle}</p>
-              <p className="text-[11px] text-slate-500 truncate mt-0.5">{creator.location}</p>
-            </div>
-          </div>
-
-          {/* Match Score Badge */}
-          <div
-            className="flex-shrink-0 flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold"
-            style={{
-              backgroundColor: `${fitColor}15`,
-              color: fitColor,
-              border: `1px solid ${fitColor}40`,
-            }}
-            title={`Audience match score: ${creator.fitScore}/100`}
-          >
-            <Sparkles size={11} />
-            <span>{creator.fitScore}/100</span>
-          </div>
-        </div>
-
-        {/* Niche Badge */}
-        <div className="flex items-center gap-2 mb-3">
-          <span
-            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium tracking-wide"
-            style={{
-              backgroundColor: 'rgba(59, 130, 246, 0.12)',
-              color: '#93c5fd',
-              border: '1px solid rgba(59, 130, 246, 0.25)',
-            }}
-          >
-            {creator.niche}
-          </span>
-          <span className="text-[11px] text-slate-400">
-            {creator.audienceB2BPercent}% B2B audience
-          </span>
-        </div>
-
-        {/* Headline */}
-        <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed mb-4 min-h-[32px]">
-          {creator.headline}
-        </p>
-      </div>
-
-      {/* Stats Matrix */}
-      <div>
-        <div
-          className="grid grid-cols-3 gap-2 py-2.5 px-3 rounded-xl mb-4"
-          style={{
-            backgroundColor: 'rgba(15, 23, 42, 0.6)',
-            border: '1px solid rgba(45, 63, 92, 0.4)',
-          }}
-        >
-          <div>
-            <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-medium">
-              Followers
-            </span>
-            <span className="text-sm font-bold text-white tracking-tight">
-              {formatNumber(creator.followers)}
-            </span>
-          </div>
-
-          <div>
-            <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-medium">
-              Median Views
-            </span>
-            <span className="text-sm font-bold text-blue-400 tracking-tight">
-              {formatNumber(creator.avgImpressions)}
-            </span>
-          </div>
-
-          <div>
-            <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-medium">
-              / Post
-            </span>
-            <span className="text-sm font-bold text-emerald-400 tracking-tight">
-              {formatEur(creator.basePriceEur)}
-            </span>
-          </div>
-        </div>
-
-        {/* Actions Bar */}
-        <div className="flex items-center gap-2 pt-1 border-t border-slate-800/80">
-          <button
-            type="button"
-            onClick={() => onViewDetails(creator)}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-medium text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 transition-all border border-slate-700/60 hover:border-slate-600 cursor-pointer"
-          >
-            <Eye size={13} />
-            <span>Profile & Posts</span>
-          </button>
-
+      {/* ── Top Bar: Checkbox, LinkedIn Icon, Watermark Number, Book button, Star ── */}
+      <div className="flex items-center justify-between z-10 mb-2">
+        {/* Left: Checkbox & LinkedIn Icon */}
+        <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => onToggleSelect(creator.id)}
             className={`
-              flex items-center justify-center gap-1.5 py-2 px-3.5 rounded-lg text-xs font-semibold transition-all cursor-pointer
+              w-5 h-5 rounded-md border flex items-center justify-center transition-colors cursor-pointer
               ${
                 isSelected
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30 hover:bg-blue-700'
-                  : 'bg-white/10 text-white hover:bg-white/15 border border-white/10'
+                  ? 'bg-blue-600 border-blue-600 text-white'
+                  : 'bg-white border-slate-300 hover:border-slate-400 text-transparent'
+              }
+            `}
+            title={isSelected ? 'Deselect creator' : 'Select creator for campaign'}
+          >
+            <Check size={13} strokeWidth={3} className={isSelected ? 'text-white' : 'hidden'} />
+          </button>
+
+          {/* LinkedIn Icon */}
+          <div className="w-5 h-5 rounded-full bg-[#0a66c2] flex items-center justify-center text-white text-[10px] font-bold">
+            in
+          </div>
+        </div>
+
+        {/* Right: Book Pill & Star Icon */}
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => onToggleSelect(creator.id)}
+            className={`
+              px-3.5 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer
+              ${
+                isSelected
+                  ? 'bg-blue-600 text-white shadow-sm hover:bg-blue-700'
+                  : 'bg-slate-100 hover:bg-slate-200 text-[#090d16]'
               }
             `}
           >
-            {isSelected ? (
-              <>
-                <Check size={13} />
-                <span>Selected</span>
-              </>
-            ) : (
-              <>
-                <Plus size={13} />
-                <span>Add</span>
-              </>
-            )}
+            {isSelected ? 'Booked' : 'Book'}
           </button>
+
+          <button
+            type="button"
+            onClick={() => setIsStarred(!isStarred)}
+            className="p-1 text-slate-400 hover:text-amber-400 transition-colors cursor-pointer"
+            title="Save to favorites"
+          >
+            <Star
+              size={16}
+              className={isStarred ? 'fill-amber-400 text-amber-400' : 'text-slate-300'}
+            />
+          </button>
+        </div>
+      </div>
+
+      {/* ── Center Watermark & Creator Info ── */}
+      <div className="relative flex flex-col items-center text-center pt-2 pb-4">
+        {/* Big Watermark Number in background */}
+        <span className="absolute -top-4 -left-1 text-6xl font-extrabold text-slate-100 select-none pointer-events-none tracking-tighter">
+          {displayNumber}
+        </span>
+
+        {/* Subtle Watermark Naano Logo */}
+        <div className="flex items-center justify-center gap-1 opacity-20 mb-2">
+          <svg width="18" height="18" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="8" fill="#090D16" />
+            <path d="M10 20C10 15.5817 13.5817 12 18 12H22V16H18C15.7909 16 14 17.7909 14 20H10Z" fill="#38BDF8" />
+          </svg>
+          <span className="text-xs font-bold text-[#090d16] tracking-tight">naano</span>
+        </div>
+
+        {/* Avatar */}
+        <div className="relative mb-2.5">
+          <img
+            src={creator.avatarUrl}
+            alt={creator.name}
+            className="w-16 h-16 rounded-full object-cover ring-4 ring-white shadow-sm"
+          />
+        </div>
+
+        {/* Name */}
+        <h3
+          onClick={() => onViewDetails && onViewDetails(creator)}
+          className="text-base font-bold text-[#090d16] tracking-tight hover:text-blue-600 transition-colors cursor-pointer"
+        >
+          {creator.name}
+        </h3>
+
+        {/* Niche tag */}
+        <p className="text-xs text-slate-500 font-medium mt-0.5">{displayNiche}</p>
+
+        {/* Country Flag pill */}
+        <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-100 text-[11px] font-medium text-slate-700 mt-2">
+          <span>{flag}</span>
+          <span>{creator.location}</span>
+        </div>
+
+        {/* Headline */}
+        <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed mt-2.5 px-1 max-w-[280px]">
+          {creator.headline}
+        </p>
+      </div>
+
+      {/* ── Match Progress Bar ── */}
+      <div className="mb-4">
+        <div className="flex items-center justify-between text-[11px] font-bold mb-1.5">
+          <span className="text-blue-600 flex items-center gap-1 tracking-wider uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-600 inline-block" />
+            MATCHING
+          </span>
+          <span className="text-[#090d16]">{creator.fitScore}/100</span>
+        </div>
+        <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+          <div
+            className="bg-blue-600 h-full rounded-full transition-all duration-500"
+            style={{ width: `${creator.fitScore}%` }}
+          />
+        </div>
+      </div>
+
+      {/* ── 3-Column Metrics Footer ── */}
+      <div className="grid grid-cols-3 pt-3 border-t border-slate-100 text-center">
+        <div>
+          <span className="text-sm font-extrabold text-[#090d16] block">
+            {formatNumber(creator.followers)}
+          </span>
+          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mt-0.5">
+            Followers
+          </span>
+        </div>
+
+        <div className="border-x border-slate-100">
+          <span className="text-sm font-extrabold text-[#090d16] block">
+            {formatNumber(creator.avgImpressions)}
+          </span>
+          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mt-0.5">
+            Median Views
+          </span>
+        </div>
+
+        <div>
+          <span className="text-sm font-extrabold text-[#090d16] block">
+            €{creator.basePriceEur}
+          </span>
+          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mt-0.5">
+            Post Cost
+          </span>
         </div>
       </div>
     </div>

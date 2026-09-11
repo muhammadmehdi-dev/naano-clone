@@ -4,560 +4,141 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
-  Zap,
-  Sparkles,
   ShieldCheck,
-  CheckCircle2,
-  TrendingUp,
-  BarChart3,
-  Layers,
   ChevronDown,
-  Quote,
-  Eye,
-  MousePointerClick,
-  UserCheck,
+  Play,
   Check,
-  Globe2,
+  ExternalLink,
   Lock,
 } from 'lucide-react';
 import MarketplaceSection from '@/components/marketplace/MarketplaceSection';
-import { formatNumber } from '@/lib/mock-data';
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  const workflowSteps = [
-    {
-      num: '01',
-      title: 'Find creators your buyers trust',
-      desc: 'Filter by B2B niche, verified LinkedIn metrics, audience demographics, and proprietary AI Fit Score matching your exact ICP.',
-      tag: 'Discovery & Matching',
-    },
-    {
-      num: '02',
-      title: 'Build a campaign brief in minutes',
-      desc: 'Set campaign goals, product angles, UTM attribution links, and creative guidelines in a standardized collaborative brief.',
-      tag: 'Brief Builder',
-    },
-    {
-      num: '03',
-      title: 'Manage every collaboration',
-      desc: 'Review post copy drafts, request edits, set scheduled publication slots, and coordinate approvals all in one streamlined workflow.',
-      tag: 'Workflow & Content',
-    },
-    {
-      num: '04',
-      title: 'Track reach, clicks, and leads',
-      desc: 'Real-time dashboard with server-side cookie attribution tracking post-level impressions, click-throughs, trials, and pipeline CAC.',
-      tag: 'Attribution & Analytics',
-    },
-    {
-      num: '05',
-      title: 'Pay creators without the admin',
-      desc: 'Consolidated monthly invoicing, escrow protection, and compliant international payouts across 100+ countries with zero tax hassle.',
-      tag: 'Automated Payments',
-    },
+  const brandLogos = [
+    { name: 'La Growth Machine', icon: '▦' },
+    { name: 'gojiberry', icon: '🔥' },
+    { name: 'ChatSEO', icon: '⚡' },
+    { name: 'Abyssale', icon: '▲' },
+    { name: 'BlogSEO', badge: 'CASE STUDY →' },
+    { name: 'lemlist', icon: '✉' },
   ];
 
-  const postShowcases = [
-    {
-      creator: 'Thomas Higadère',
-      handle: '@thigadere',
-      role: 'Head of Growth',
-      sponsor: 'lemlist',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=96&h=96&fit=crop&crop=face',
-      impressions: 42800,
-      clicks: 312,
-      leads: 18,
-      text: 'Outbound sales isn\'t dead — generic spam is. We analyzed 1.2M cold emails sent via lemlist last month. The top 1% all do this one specific personalisation hook 🧵',
-    },
-    {
-      creator: 'Marina Panova',
-      handle: '@marina-panova',
-      role: 'Creative Tech Lead',
-      sponsor: 'Abyssale',
-      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=96&h=96&fit=crop&crop=face',
-      impressions: 100000,
-      clicks: 1600,
-      leads: 320,
-      text: 'How design teams at Figma & Canva automate 10,000+ localized ad variations with dynamic creative templates. Full technical breakdown and Figma token workflow:',
-    },
-    {
-      creator: 'Eric Djavid',
-      handle: '@eric-djavid',
-      role: 'B2B Sales Advisor',
-      sponsor: 'LEADBAY',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&fit=crop&crop=face',
-      impressions: 20000,
-      clicks: 350,
-      leads: 80,
-      text: 'The CFO objection guide: 5 slide deck templates to get enterprise software deals approved before end of Q4. Save this for your next executive review.',
-    },
+  const clientLogos = [
+    'lemlist',
+    'folk.',
+    'LEADBAY',
+    'ringover',
+    'attio',
+    'La Growth Machine',
+    'gojiberry',
+    'ChatSEO',
+    'Abyssale',
+    '+30 more',
   ];
 
   const faqs = [
     {
       q: 'What is Naano?',
-      a: 'Naano is the premier B2B LinkedIn creator marketplace. Companies discover, collaborate with, and track vetted B2B industry creators for sponsored LinkedIn campaigns — each at a transparent, fixed price per post set by the creator.',
+      a: 'Naano is a B2B LinkedIn creator marketplace: companies discover and book vetted creators for sponsored LinkedIn campaigns, each at a fixed price per post set by the creator. The marketplace spans creators from niche voices with around 1,000 followers to established B2B creators with audiences of several hundred thousand.',
     },
     {
-      q: 'How does pricing work for creator posts?',
-      a: 'Every creator sets their own transparent rate per post (starting around €84 up to €4,000+ depending on audience tier and specialty). You only pay when deliverables are approved. Self-serve platform access is 100% free with no monthly subscription.',
+      q: 'How does Naano find the right creators?',
+      a: 'Naano verifies creators on audience quality, engagement metrics, and B2B buyer relevance. You can filter by niche, seniority of audience, median views, and our proprietary audience match score.',
     },
     {
-      q: 'How does attribution and lead tracking work?',
-      a: 'Naano generates unique, branded attribution links with UTM parameters for every creator. Our live tracking engine records clicks, conversion timestamps, and integrates with your CRM (HubSpot, Salesforce, Segment) to attribute pipeline directly to creator posts.',
+      q: 'Which networks do you support?',
+      a: 'Naano focuses primarily on LinkedIn, the #1 channel for B2B decision-maker attention, along with select B2B creator activations on X (Twitter).',
     },
     {
-      q: 'How are creators vetted on Naano?',
-      a: 'Every creator undergoes rigorous verification: minimum 70% B2B decision-maker audience composition, verified LinkedIn post analytics, authentic engagement rates, and professional industry standing.',
+      q: 'How does per-post pricing work?',
+      a: 'Every creator sets their own transparent fixed price per post. There are no hidden markups: you see the exact post fee upfront, book creators directly, and only pay when work is approved.',
     },
     {
-      q: 'Can I launch campaigns in specific countries or languages?',
-      a: 'Yes. Naano hosts creators across 100+ countries with strong presence across North America, the UK, Germany (DACH), France, and pan-European B2B tech ecosystems.',
+      q: 'How does attribution work?',
+      a: 'Naano equips every post with branded, short attribution links containing UTM tags. Our analytics dashboard tracks clicks, conversion timestamps, company-level domain resolution, and pipeline leads.',
     },
-  ];
-
-  const brandLogos = [
-    'La Growth Machine',
-    'gojiberry',
-    'ChatSEO',
-    'Abyssale',
-    'BlogSEO',
-    'lemlist',
-    'Spendesk',
-    'Personio',
+    {
+      q: 'Do you handle creator payouts?',
+      a: 'Yes. Naano handles consolidated monthly invoicing, escrow compliance, tax documents, and international bank transfers across 100+ countries with zero administrative overhead for your finance team.',
+    },
+    {
+      q: "What's the difference between Free and Done for you?",
+      a: 'Free (Self-serve) gives you full access to search, contact, brief, and pay creators directly. Managed (Done for you) assigns a dedicated creator strategist to handle ideation, creator outreach, creative direction, and campaign execution end-to-end.',
+    },
+    {
+      q: 'Can I upgrade or cancel anytime?',
+      a: 'Yes. There are no monthly lock-in contracts on Self-Serve. You only pay for the creator campaigns you choose to run.',
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-[#0a0f1e] text-slate-100 selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen text-[#090d16] font-sans antialiased selection:bg-blue-600 selection:text-white">
       {/* ── 1. Hero Section ─────────────────────────────────────────────── */}
-      <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden">
-        {/* Ambient Glows */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-blue-600/15 blur-[120px] pointer-events-none rounded-full" />
-        <div className="absolute top-1/3 left-1/4 w-[400px] h-[250px] bg-indigo-600/10 blur-[100px] pointer-events-none rounded-full" />
+      <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 text-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+        {/* Sky Ambient Glows */}
+        <div className="absolute top-0 inset-x-0 h-[600px] naano-cloud-bg pointer-events-none -z-10" />
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center">
+        <div className="max-w-4xl mx-auto">
           {/* Top Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-900/90 text-slate-300 border border-slate-700/80 shadow-inner mb-6 hover:border-blue-500/50 transition-colors">
-            <span className="font-bold text-blue-400">𝕏 in</span>
-            <span className="w-1 h-1 rounded-full bg-slate-500" />
-            <span>Where B2B brands work with creators</span>
-            <ArrowRight size={13} className="text-slate-400" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-slate-200/90 shadow-sm text-xs font-semibold text-slate-800 mb-8 backdrop-blur-md">
+            <span className="font-bold text-[#090d16]">𝕏</span>
+            <span className="w-4 h-4 rounded-full bg-[#0a66c2] text-white flex items-center justify-center text-[10px] font-bold">
+              in
+            </span>
+            <span className="text-slate-700">Where B2B brands work with creators</span>
           </div>
 
-          {/* Main H1 */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.08]">
-            The B2B LinkedIn <br className="hidden sm:block" />
-            <span className="bg-gradient-to-r from-blue-400 via-indigo-300 to-blue-500 bg-clip-text text-transparent">
-              Creator Marketplace.
-            </span>
+          {/* Headline */}
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-[#090d16] tracking-tight leading-[1.08] mb-6">
+            The B2B LinkedIn <br />
+            Creator Marketplace.
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-10">
+          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10">
             Find the creators your buyers already trust, launch campaigns in days, and track the
             clicks, leads and pipeline generated by every post.
           </p>
 
-          {/* CTAs */}
+          {/* Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
             <a
               href="#marketplace"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-sm text-white shadow-xl shadow-blue-600/25 hover:shadow-blue-600/40 transition-all duration-200"
-              style={{ background: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)' }}
+              className="w-full sm:w-auto px-7 py-3.5 rounded-full font-semibold text-sm text-white bg-[#090d16] hover:bg-slate-800 shadow-md transition-all flex items-center justify-center gap-2"
             >
               <span>Launch a campaign</span>
-              <ArrowRight size={16} />
+              <ArrowRight size={15} />
             </a>
-
-            <Link
-              href="/campaigns/demo"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-4 rounded-full font-bold text-sm text-white bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 hover:border-slate-600 transition-all duration-200"
-            >
-              <Zap size={15} className="text-amber-400 fill-amber-400" />
-              <span>⚡ Instant Demo Dashboard</span>
-            </Link>
 
             <a
               href="#how-it-works"
-              className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-6 py-4 rounded-full text-sm font-medium text-slate-300 hover:text-white transition-colors"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-full font-medium text-sm text-slate-800 hover:text-black transition-colors flex items-center justify-center gap-1.5"
             >
               <span>See how Naano works</span>
-              <ArrowRight size={14} />
+              <ArrowRight size={15} />
             </a>
           </div>
 
-          {/* Trust Banner & Logo Strip */}
-          <div className="pt-8 border-t border-slate-800/80">
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">
-              🛡 Trusted by modern B2B teams
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 opacity-75 grayscale hover:grayscale-0 transition-all duration-300">
-              {brandLogos.map((brand) => (
-                <span
-                  key={brand}
-                  className="text-sm sm:text-base font-bold text-slate-300 tracking-tight hover:text-white transition-colors"
-                >
-                  {brand}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 2. Quote Banner ─────────────────────────────────────────────── */}
-      <section className="py-12 border-y border-slate-800/80 bg-slate-950/40">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <Quote size={24} className="text-blue-500 mx-auto mb-4 opacity-75" />
-          <blockquote className="text-lg sm:text-2xl font-medium text-slate-200 leading-snug mb-4">
-            &ldquo;We manage €10M+ of influence budget every year. For B2B, Naano simply makes our
-            life easier.&rdquo;
-          </blockquote>
-          <p className="text-xs sm:text-sm text-slate-400">
-            <strong className="text-white">David Zmirov</strong> — CEO, Zmirov Communication ·
-            Influence agency
-          </p>
-        </div>
-      </section>
-
-      {/* ── 3. Creator Marketplace (Core Discovery Engine) ──────────────── */}
-      <MarketplaceSection />
-
-      {/* ── 4. 5-Step Workflow Section ─────────────────────────────────── */}
-      <section id="how-it-works" className="py-20 md:py-28 border-t border-slate-800/80 bg-slate-950/60 relative">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 mb-4">
-              End-to-End Operating System
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-              Run creator campaigns from one place.
-            </h2>
-            <p className="text-base sm:text-lg text-slate-300">
-              Find the right voices, launch faster, and connect every post to measurable business results.
-            </p>
+          {/* Trust Banner */}
+          <div className="flex items-center justify-center gap-2 text-xs font-medium text-slate-500 mb-6">
+            <ShieldCheck size={16} className="text-slate-400" />
+            <span>Trusted by modern B2B teams</span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-            {workflowSteps.map((step) => (
+          {/* Client Logos Ticker */}
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 opacity-80">
+            {brandLogos.map((brand, i) => (
               <div
-                key={step.num}
-                className="group relative rounded-2xl p-6 bg-slate-900/60 border border-slate-800 hover:border-blue-500/50 transition-all duration-300 flex flex-col justify-between"
+                key={i}
+                className="flex items-center gap-1.5 text-sm font-bold text-slate-800 hover:text-black transition-colors"
               >
-                <div>
-                  <div className="text-2xl font-black text-blue-500/50 group-hover:text-blue-400 transition-colors mb-3">
-                    {step.num}
-                  </div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block mb-2">
-                    {step.tag}
+                <span>{brand.name}</span>
+                {brand.badge && (
+                  <span className="px-2 py-0.5 rounded-full bg-slate-100 text-[10px] font-bold text-slate-700 border border-slate-200">
+                    {brand.badge}
                   </span>
-                  <h3 className="text-base font-bold text-white mb-2 leading-snug">
-                    {step.title}
-                  </h3>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    {step.desc}
-                  </p>
-                </div>
-                <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center text-[11px] font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">
-                  <span>Learn more</span>
-                  <ArrowRight size={12} className="ml-1" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 5. Case Study & Live Post Showcase ─────────────────────────── */}
-      <section className="py-20 md:py-28 border-t border-slate-800/80 relative">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Case Study Header Card */}
-          <div
-            className="rounded-3xl p-8 md:p-12 mb-16 border relative overflow-hidden"
-            style={{
-              background: 'linear-gradient(145deg, rgba(17, 24, 39, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)',
-              borderColor: 'rgba(59, 130, 246, 0.3)',
-            }}
-          >
-            <div className="max-w-3xl">
-              <span className="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 mb-4 inline-block">
-                Case Study · BlogSEO
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
-                Real teams. Measurable pipeline.
-              </h2>
-              <blockquote className="text-base sm:text-xl text-slate-200 italic mb-6 leading-relaxed">
-                &ldquo;Naano became one of our fastest acquisition channels. We know exactly what
-                every creator brings to the table.&rdquo;
-              </blockquote>
-              <p className="text-xs sm:text-sm text-slate-400 mb-8">
-                <strong className="text-white">Vincent Josse</strong> — CEO & Founder, BlogSEO
-              </p>
-
-              {/* Stat Highlights */}
-              <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800 text-center sm:text-left">
-                <div>
-                  <span className="text-2xl sm:text-3xl font-black text-white block">9</span>
-                  <span className="text-xs text-slate-400">Creators Activated</span>
-                </div>
-                <div>
-                  <span className="text-2xl sm:text-3xl font-black text-blue-400 block">2,940</span>
-                  <span className="text-xs text-slate-400">Qualified Clicks</span>
-                </div>
-                <div>
-                  <span className="text-2xl sm:text-3xl font-black text-emerald-400 block">512</span>
-                  <span className="text-xs text-slate-400">Trials Started</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Section: Live Performance Post Cards */}
-          <div className="mb-10 text-center">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-              Verified Attribution In Action
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white">
-              Real LinkedIn posts. Attributed results.
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {postShowcases.map((post, idx) => (
-              <div
-                key={idx}
-                className="rounded-2xl p-5 bg-slate-900/70 border border-slate-800 flex flex-col justify-between hover:border-slate-700 transition-colors"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2.5">
-                      <img
-                        src={post.avatar}
-                        alt={post.creator}
-                        className="w-10 h-10 rounded-full object-cover"
-                      />
-                      <div>
-                        <span className="text-sm font-semibold text-white block">{post.creator}</span>
-                        <span className="text-xs text-slate-400">{post.handle}</span>
-                      </div>
-                    </div>
-                    <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                      {post.sponsor}
-                    </span>
-                  </div>
-
-                  <p className="text-xs text-slate-300 line-clamp-3 leading-relaxed mb-4">
-                    {post.text}
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-slate-950 border border-slate-800/80 text-center">
-                  <div>
-                    <span className="text-[10px] text-slate-400 block">Reach</span>
-                    <span className="text-xs font-bold text-white">{formatNumber(post.impressions)}</span>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400 block">Clicks</span>
-                    <span className="text-xs font-bold text-blue-400">{post.clicks}</span>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400 block">Leads</span>
-                    <span className="text-xs font-bold text-emerald-400">{post.leads}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 6. Aggregate Stats Banner ─────────────────────────────────── */}
-      <section className="py-16 border-y border-slate-800/80 bg-slate-950/60">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div className="p-4">
-              <div className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-1">
-                5M+
-              </div>
-              <p className="text-xs sm:text-sm text-slate-400 font-medium">Impressions Generated</p>
-            </div>
-            <div className="p-4">
-              <div className="text-3xl sm:text-5xl font-black text-blue-400 tracking-tight mb-1">
-                30K+
-              </div>
-              <p className="text-xs sm:text-sm text-slate-400 font-medium">Attributed Leads</p>
-            </div>
-            <div className="p-4">
-              <div className="text-3xl sm:text-5xl font-black text-indigo-400 tracking-tight mb-1">
-                2,000+
-              </div>
-              <p className="text-xs sm:text-sm text-slate-400 font-medium">Vetted Creators</p>
-            </div>
-            <div className="p-4">
-              <div className="text-3xl sm:text-5xl font-black text-emerald-400 tracking-tight mb-1">
-                5K+
-              </div>
-              <p className="text-xs sm:text-sm text-slate-400 font-medium">Posts Published</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 7. Pricing Section ─────────────────────────────────────────── */}
-      <section id="pricing" className="py-20 md:py-28 relative">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
-              Transparent Pricing
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-              Pricing.
-            </h2>
-            <p className="text-base sm:text-lg text-slate-300">
-              Start free. Upgrade when you want your time back.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Self-Serve Card */}
-            <div className="rounded-3xl p-8 bg-slate-900/70 border border-slate-800 flex flex-col justify-between">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                  Self-Serve
-                </span>
-                <p className="text-sm text-slate-300 mt-1 mb-4">Run it yourself.</p>
-                <div className="text-4xl font-extrabold text-white mb-6">
-                  €0 <span className="text-base font-normal text-slate-400">/ month</span>
-                </div>
-
-                <ul className="space-y-3 text-sm text-slate-300 mb-8">
-                  <li className="flex items-center gap-2">
-                    <Check size={16} className="text-blue-400" />
-                    <span>Access 3,000+ vetted B2B LinkedIn creators</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check size={16} className="text-blue-400" />
-                    <span>Direct brief submission & message threads</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check size={16} className="text-blue-400" />
-                    <span>Standard UTM tracking & live attribution links</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check size={16} className="text-blue-400" />
-                    <span>Pay only creator post fees with escrow protection</span>
-                  </li>
-                </ul>
-              </div>
-
-              <a
-                href="#marketplace"
-                className="w-full py-3.5 px-4 rounded-xl text-center font-bold text-sm bg-white/10 hover:bg-white/15 text-white border border-white/10 transition-colors"
-              >
-                Start free →
-              </a>
-            </div>
-
-            {/* Managed Campaigns Card */}
-            <div
-              className="rounded-3xl p-8 border relative flex flex-col justify-between"
-              style={{
-                background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%)',
-                borderColor: 'rgba(59, 130, 246, 0.6)',
-                boxShadow: '0 0 30px rgba(59, 130, 246, 0.15)',
-              }}
-            >
-              <div className="absolute -top-3 right-6 px-3 py-0.5 rounded-full text-[11px] font-bold bg-blue-600 text-white">
-                RECOMMENDED FOR TEAMS
-              </div>
-
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
-                  Managed Campaigns
-                </span>
-                <p className="text-sm text-slate-300 mt-1 mb-4">Get your time back.</p>
-                <div className="text-4xl font-extrabold text-white mb-6">
-                  Custom quote
-                </div>
-
-                <ul className="space-y-3 text-sm text-slate-300 mb-8">
-                  <li className="flex items-center gap-2">
-                    <Check size={16} className="text-emerald-400" />
-                    <span>Dedicated B2B creator strategist & campaign architect</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check size={16} className="text-emerald-400" />
-                    <span>Custom ICP creator sourcing, outreach & negotiation</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check size={16} className="text-emerald-400" />
-                    <span>Full copy review, creative direction & angle testing</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check size={16} className="text-emerald-400" />
-                    <span>Custom CRM integration (HubSpot/Salesforce)</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check size={16} className="text-emerald-400" />
-                    <span>Consolidated enterprise invoicing & performance guarantee</span>
-                  </li>
-                </ul>
-              </div>
-
-              <Link
-                href="/campaigns/demo"
-                className="w-full py-3.5 px-4 rounded-xl text-center font-bold text-sm text-white transition-all shadow-lg shadow-blue-600/30"
-                style={{ background: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)' }}
-              >
-                Book a strategy call →
-              </Link>
-            </div>
-          </div>
-
-          <p className="text-center text-xs text-slate-400 mt-6 flex items-center justify-center gap-2">
-            <Lock size={13} />
-            <span>Campaign spend is separate. No lock-in. Cancel anytime.</span>
-          </p>
-        </div>
-      </section>
-
-      {/* ── 8. Interactive FAQ Accordion ───────────────────────────────── */}
-      <section id="faq" className="py-20 border-t border-slate-800/80 bg-slate-950/40">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-extrabold text-white tracking-tight mb-2">
-              Frequently asked questions.
-            </h2>
-            <p className="text-sm text-slate-400">
-              Everything you need to know before getting started.
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {faqs.map((faq, idx) => (
-              <div
-                key={idx}
-                className="rounded-xl border border-slate-800/80 bg-slate-900/60 overflow-hidden"
-              >
-                <button
-                  type="button"
-                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full flex items-center justify-between p-5 text-left font-semibold text-sm text-white hover:text-blue-400 transition-colors"
-                >
-                  <span>{faq.q}</span>
-                  <ChevronDown
-                    size={16}
-                    className={`transition-transform duration-200 ${
-                      openFaq === idx ? 'rotate-180 text-blue-400' : 'text-slate-400'
-                    }`}
-                  />
-                </button>
-                {openFaq === idx && (
-                  <div className="px-5 pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3">
-                    {faq.a}
-                  </div>
                 )}
               </div>
             ))}
@@ -565,109 +146,888 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 9. Final CTA Banner ────────────────────────────────────────── */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div
-            className="rounded-3xl p-8 sm:p-14 text-center border relative overflow-hidden"
-            style={{
-              background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(79, 70, 229, 0.1) 100%)',
-              borderColor: 'rgba(59, 130, 246, 0.4)',
-            }}
-          >
-            <span className="text-xs font-bold uppercase tracking-widest text-blue-400 block mb-3">
-              READY TO LAUNCH?
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4">
-              Your next creator campaign starts here.
-            </h2>
-            <p className="text-sm sm:text-base text-slate-300 max-w-xl mx-auto mb-8">
-              Get a clear creator strategy, campaign format and estimated budget for your next launch.
-            </p>
+      {/* ── 2. Quote Section (David Zmirov) ─────────────────────────────── */}
+      <section className="py-20 text-center px-4 sm:px-6 border-y border-slate-200/60 bg-white/40">
+        <div className="max-w-3xl mx-auto">
+          {/* Logo */}
+          <div className="text-xs font-black tracking-widest text-[#090d16] uppercase mb-1">
+            &#123; zmirov &#125;
+          </div>
+          <div className="text-[9px] tracking-widest text-slate-400 uppercase font-semibold mb-3">
+            COMMUNICATION
+          </div>
+          <div className="w-8 h-0.5 bg-blue-600 mx-auto mb-8" />
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="#marketplace"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-full font-bold text-sm text-white shadow-lg transition-all"
-                style={{ background: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)' }}
-              >
-                Explore Marketplace →
-              </a>
-              <Link
-                href="/campaigns/demo"
-                className="w-full sm:w-auto px-7 py-3.5 rounded-full font-bold text-sm text-white bg-slate-800/80 hover:bg-slate-800 border border-slate-700 transition-colors"
-              >
-                View Live Demo Dashboard
-              </Link>
-            </div>
+          {/* Quote text */}
+          <blockquote className="text-2xl sm:text-4xl font-bold text-[#090d16] tracking-tight leading-snug mb-8">
+            &ldquo;We manage €10M+ of influence budget every year. For B2B, Naano simply{' '}
+            <span className="text-slate-300">makes our life</span>{' '}
+            <span className="text-blue-300">easier</span>&rdquo;
+          </blockquote>
+
+          {/* Avatar & Author */}
+          <div className="flex flex-col items-center justify-center">
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=face"
+              alt="David Zmirov"
+              className="w-14 h-14 rounded-full object-cover shadow-sm mb-3 ring-2 ring-white"
+            />
+            <span className="text-sm font-bold text-[#090d16]">David Zmirov</span>
+            <span className="text-xs text-slate-500">
+              CEO, Zmirov Communication · Influence agency
+            </span>
           </div>
         </div>
       </section>
 
+      {/* ── 3. Creator Marketplace ─────────────────────────────────────── */}
+      <MarketplaceSection />
+
+      {/* ── 4. 5-Step Workflow OS ───────────────────────────────────────── */}
+      <section id="how-it-works" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
+          <div>
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-[#090d16] tracking-tight leading-tight">
+              Run creator campaigns <br />
+              from one place.
+            </h2>
+          </div>
+          <p className="text-base sm:text-lg text-slate-600 max-w-md">
+            Find the right voices, launch faster, and connect every post to measurable business results.
+          </p>
+        </div>
+
+        {/* 5 Cards Row with connecting dotted line */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 relative">
+          {/* Step 01 */}
+          <div className="rounded-3xl bg-white p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between">
+            <div>
+              <div className="w-7 h-7 rounded-full bg-blue-50 text-blue-600 text-xs font-bold flex items-center justify-center mb-4">
+                01
+              </div>
+
+              {/* Visual mini-mockup: 3 creator cards */}
+              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between gap-1 mb-6">
+                <div className="text-center">
+                  <img
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop&crop=face"
+                    className="w-8 h-8 rounded-full mx-auto object-cover"
+                    alt="Eric"
+                  />
+                  <span className="text-[10px] font-bold block mt-1">Eric</span>
+                  <span className="text-[9px] text-blue-600 font-semibold">Fit 92%</span>
+                </div>
+                <div className="text-center">
+                  <img
+                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=64&h=64&fit=crop&crop=face"
+                    className="w-8 h-8 rounded-full mx-auto object-cover"
+                    alt="Robin"
+                  />
+                  <span className="text-[10px] font-bold block mt-1">Robin</span>
+                  <span className="text-[9px] text-blue-600 font-semibold">Fit 88%</span>
+                </div>
+                <div className="text-center">
+                  <img
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=64&h=64&fit=crop&crop=face"
+                    className="w-8 h-8 rounded-full mx-auto object-cover"
+                    alt="Aya"
+                  />
+                  <span className="text-[10px] font-bold block mt-1">Aya</span>
+                  <span className="text-[9px] text-blue-600 font-semibold">Fit 84%</span>
+                </div>
+              </div>
+            </div>
+
+            <h3 className="text-sm font-bold text-[#090d16] leading-snug">
+              Find creators your buyers trust
+            </h3>
+          </div>
+
+          {/* Step 02 */}
+          <div className="rounded-3xl bg-white p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between">
+            <div>
+              <div className="w-7 h-7 rounded-full bg-blue-50 text-blue-600 text-xs font-bold flex items-center justify-center mb-4">
+                02
+              </div>
+
+              {/* Visual mini-mockup: Campaign brief AI */}
+              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 mb-6 space-y-2 text-[11px]">
+                <div className="flex items-center justify-between font-bold text-[#090d16]">
+                  <span>Campaign brief</span>
+                  <span className="px-1.5 py-0.5 rounded bg-blue-100 text-blue-700 text-[9px]">AI</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-slate-600 text-[10px]">
+                  <Check size={12} className="text-blue-600" />
+                  <span>Objectives and key messages</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-slate-600 text-[10px]">
+                  <Check size={12} className="text-blue-600" />
+                  <span>Creator guidelines</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-slate-600 text-[10px]">
+                  <Check size={12} className="text-blue-600" />
+                  <span>Tracking links ready</span>
+                </div>
+                <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
+                  <div className="bg-slate-700 h-full w-2/3" />
+                </div>
+              </div>
+            </div>
+
+            <h3 className="text-sm font-bold text-[#090d16] leading-snug">
+              Build a campaign brief in minutes
+            </h3>
+          </div>
+
+          {/* Step 03 */}
+          <div className="rounded-3xl bg-white p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between">
+            <div>
+              <div className="w-7 h-7 rounded-full bg-blue-50 text-blue-600 text-xs font-bold flex items-center justify-center mb-4">
+                03
+              </div>
+
+              {/* Visual mini-mockup: Manage collabs */}
+              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 mb-6 space-y-2 text-[11px]">
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-slate-800">Raphael</span>
+                  <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[9px] font-bold">
+                    Draft ready
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-slate-800">Thomas</span>
+                  <span className="px-2 py-0.5 rounded-full bg-slate-200 text-slate-700 text-[9px] font-bold">
+                    Scheduled
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-slate-800">Nada</span>
+                  <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[9px] font-bold">
+                    Live
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <h3 className="text-sm font-bold text-[#090d16] leading-snug">
+              Manage every collaboration
+            </h3>
+          </div>
+
+          {/* Step 04 */}
+          <div className="rounded-3xl bg-white p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between">
+            <div>
+              <div className="w-7 h-7 rounded-full bg-blue-50 text-blue-600 text-xs font-bold flex items-center justify-center mb-4">
+                04
+              </div>
+
+              {/* Visual mini-mockup: Attributed pipeline */}
+              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 mb-6 text-center">
+                <span className="text-[10px] text-slate-500 block">Attributed pipeline</span>
+                <span className="text-base font-extrabold text-[#090d16]">€48.2K</span>
+                <span className="text-[9px] text-emerald-600 font-bold ml-1">+24%</span>
+                <div className="flex items-end justify-center gap-1.5 h-8 mt-2">
+                  <span className="w-2 h-3 bg-blue-200 rounded-xs" />
+                  <span className="w-2 h-5 bg-blue-300 rounded-xs" />
+                  <span className="w-2 h-4 bg-blue-300 rounded-xs" />
+                  <span className="w-2 h-6 bg-blue-400 rounded-xs" />
+                  <span className="w-2 h-7 bg-slate-800 rounded-xs" />
+                  <span className="w-2 h-8 bg-slate-900 rounded-xs" />
+                </div>
+                <div className="flex justify-between text-[8px] text-slate-400 mt-1">
+                  <span>124K views</span>
+                  <span>418 leads</span>
+                </div>
+              </div>
+            </div>
+
+            <h3 className="text-sm font-bold text-[#090d16] leading-snug">
+              Track reach, clicks, and leads
+            </h3>
+          </div>
+
+          {/* Step 05 */}
+          <div className="rounded-3xl bg-white p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between">
+            <div>
+              <div className="w-7 h-7 rounded-full bg-blue-50 text-blue-600 text-xs font-bold flex items-center justify-center mb-4">
+                05
+              </div>
+
+              {/* Visual mini-mockup: Payment scheduled */}
+              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 mb-6 text-center text-[11px]">
+                <div className="flex items-center justify-center gap-1 text-emerald-600 font-bold text-xs mb-1">
+                  <Check size={14} />
+                  <span>Payment scheduled</span>
+                </div>
+                <span className="text-[10px] text-slate-400 block mb-2">Handled by Naano</span>
+                <div className="p-2 rounded-xl bg-white border border-slate-200">
+                  <span className="text-[9px] text-slate-500 block">Creator payout</span>
+                  <span className="text-sm font-bold text-[#090d16]">€1,240</span>
+                </div>
+              </div>
+            </div>
+
+            <h3 className="text-sm font-bold text-[#090d16] leading-snug">
+              Pay creators without the admin
+            </h3>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 5. Case Study Section ───────────────────────────────────────── */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div className="text-left mb-10">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#090d16] tracking-tight mb-2">
+            Real teams. Measurable pipeline.
+          </h2>
+          <p className="text-base text-slate-600">
+            See how B2B teams turn creator trust into attributable demand with Naano.
+          </p>
+        </div>
+
+        {/* Big White Card */}
+        <div className="rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-10 shadow-lg shadow-slate-200/40 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Left: Video Testimonial Box */}
+            <div className="lg:col-span-5 relative rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 group">
+              <span className="absolute top-3 left-3 px-2 py-0.5 rounded bg-black/60 backdrop-blur-md text-[10px] font-bold uppercase tracking-wider text-white z-10">
+                Video Testimonial
+              </span>
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&h=450&fit=crop&crop=face"
+                alt="Vincent Josse"
+                className="w-full h-64 sm:h-80 object-cover"
+              />
+              {/* Play button */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-14 h-14 rounded-full bg-white/90 shadow-lg flex items-center justify-center text-[#090d16] group-hover:scale-110 transition-transform">
+                  <Play size={20} className="fill-current ml-1" />
+                </div>
+              </div>
+              <div className="absolute bottom-3 left-3 text-white text-xs font-bold drop-shadow">
+                Vincent Josse · Founder of BlogSEO
+              </div>
+            </div>
+
+            {/* Right: Case Study Info */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                  Case Study
+                </span>
+                <span className="text-sm font-extrabold text-blue-600">BlogSEO</span>
+              </div>
+
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#090d16] tracking-tight leading-snug">
+                How BlogSEO turned creator content into product signups
+              </h3>
+
+              <p className="text-sm text-slate-600 leading-relaxed">
+                BlogSEO briefed SEO & SaaS creators on LinkedIn and X, then traced every trial back
+                to the post that drove it, all in Naano.
+              </p>
+
+              {/* 3 Stats */}
+              <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-100">
+                <div>
+                  <span className="text-3xl font-extrabold text-[#090d16] block">9</span>
+                  <span className="text-xs text-slate-500">creators activated</span>
+                </div>
+                <div>
+                  <span className="text-3xl font-extrabold text-[#090d16] block">2,940</span>
+                  <span className="text-xs text-slate-500">qualified clicks</span>
+                </div>
+                <div>
+                  <span className="text-3xl font-extrabold text-[#090d16] block">512</span>
+                  <span className="text-xs text-slate-500">trials started</span>
+                </div>
+              </div>
+
+              <a
+                href="#marketplace"
+                className="inline-flex items-center gap-1 text-xs font-bold text-[#090d16] hover:text-blue-600 transition-colors"
+              >
+                <span>Read case study</span>
+                <ArrowRight size={13} />
+              </a>
+            </div>
+          </div>
+
+          {/* Testimonial Quote Pill */}
+          <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <blockquote className="text-base sm:text-lg font-bold text-[#090d16] tracking-tight italic">
+              &ldquo;Naano became one of our fastest acquisition channels. We know exactly what
+              every creator brings.&rdquo;
+            </blockquote>
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face"
+                alt="Vincent Josse"
+                className="w-8 h-8 rounded-full object-cover"
+              />
+              <span className="text-xs font-bold text-slate-700">Vincent Josse, BlogSEO</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Client Logos Strip */}
+        <div className="text-center pt-6">
+          <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-6">
+            Trusted by teams at
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-bold text-slate-600">
+            {clientLogos.map((client) => (
+              <span key={client} className="hover:text-black transition-colors">
+                {client}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 6. Results & Live Post Showcase ─────────────────────────────── */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-800 shadow-sm mb-4">
+            <span className="w-2 h-2 rounded-full bg-blue-600" />
+            <span>THE RESULTS</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#090d16] tracking-tight">
+            Proven across thousands of campaigns.
+          </h2>
+        </div>
+
+        {/* 4 Stat Cards */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-16">
+          <div className="rounded-3xl bg-white p-7 border border-slate-200/90 shadow-sm text-center">
+            <div className="text-4xl sm:text-5xl font-extrabold text-[#090d16] tracking-tight mb-2">
+              5M+
+            </div>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              Impressions generated
+            </p>
+          </div>
+
+          <div className="rounded-3xl bg-white p-7 border border-slate-200/90 shadow-sm text-center">
+            <div className="text-4xl sm:text-5xl font-extrabold text-[#090d16] tracking-tight mb-2">
+              30K+
+            </div>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              Leads generated
+            </p>
+          </div>
+
+          <div className="rounded-3xl bg-white p-7 border border-slate-200/90 shadow-sm text-center">
+            <div className="text-4xl sm:text-5xl font-extrabold text-[#090d16] tracking-tight mb-2">
+              2,000+
+            </div>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              Creators on Naano
+            </p>
+          </div>
+
+          <div className="rounded-3xl bg-white p-7 border border-slate-200/90 shadow-sm text-center">
+            <div className="text-4xl sm:text-5xl font-extrabold text-[#090d16] tracking-tight mb-2">
+              5K+
+            </div>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              Posts published
+            </p>
+          </div>
+        </div>
+
+        {/* 4 Authentic Post Showcase Cards (Exact from Screenshot 9 & 10) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {/* Post 1: Thomas Higadère */}
+          <div className="rounded-3xl bg-white p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div>
+              <div className="flex items-center gap-2.5 mb-3">
+                <img
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop&crop=face"
+                  alt="Thomas"
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+                <div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs font-bold text-[#090d16]">Thomas Higadère</span>
+                    <span className="w-3.5 h-3.5 rounded bg-[#0a66c2] text-white text-[8px] flex items-center justify-center font-bold">
+                      in
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-slate-400 block">
+                    Creator · B2B & AI · 34K followers
+                  </span>
+                </div>
+              </div>
+
+              <h4 className="text-xs font-bold text-[#090d16] line-clamp-2 leading-snug mb-3">
+                How AI changed our prospecting workflow for wealth managers and private bankers.
+              </h4>
+
+              {/* Graphic thumbnail */}
+              <div className="rounded-xl bg-blue-50/70 border border-blue-100 p-3 h-28 flex items-center justify-center mb-4 text-center">
+                <div className="space-y-1 w-full">
+                  <div className="h-2 bg-blue-200 rounded w-3/4 mx-auto" />
+                  <div className="h-2 bg-blue-300 rounded w-1/2 mx-auto" />
+                  <div className="h-2 bg-blue-200 rounded w-2/3 mx-auto" />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div className="grid grid-cols-3 py-2 border-t border-slate-100 text-center text-[11px] mb-2">
+                <div>
+                  <span className="font-bold text-[#090d16] block">42.8K</span>
+                  <span className="text-[9px] text-slate-400">Impressions</span>
+                </div>
+                <div>
+                  <span className="font-bold text-[#090d16] block">312</span>
+                  <span className="text-[9px] text-slate-400">Clicks</span>
+                </div>
+                <div>
+                  <span className="font-bold text-[#090d16] block">18</span>
+                  <span className="text-[9px] text-slate-400">Leads</span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between text-[11px] pt-1 text-slate-500">
+                <span>For <strong>lemlist</strong></span>
+                <span className="text-blue-600 font-semibold cursor-pointer">View post ↗</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Post 2: Robin Tempe */}
+          <div className="rounded-3xl bg-white p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div>
+              <div className="flex items-center gap-2.5 mb-3">
+                <img
+                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=64&h=64&fit=crop&crop=face"
+                  alt="Robin"
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+                <div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs font-bold text-[#090d16]">Robin Tempe</span>
+                    <span className="w-3.5 h-3.5 rounded bg-[#0a66c2] text-white text-[8px] flex items-center justify-center font-bold">
+                      in
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-slate-400 block">
+                    Creator · Sales & AI · 12K followers
+                  </span>
+                </div>
+              </div>
+
+              <h4 className="text-xs font-bold text-[#090d16] line-clamp-2 leading-snug mb-3">
+                I run my entire prospecting workflow through an AI. Here is how.
+              </h4>
+
+              {/* Graphic thumbnail */}
+              <div className="rounded-xl bg-slate-900 p-3 h-28 flex flex-col items-center justify-center mb-4 text-center text-white">
+                <span className="text-xs font-bold text-amber-400">Claude + MCP</span>
+                <span className="text-[10px] text-slate-300">LEADBAY WORKFLOW</span>
+              </div>
+            </div>
+
+            <div>
+              <div className="grid grid-cols-3 py-2 border-t border-slate-100 text-center text-[11px] mb-2">
+                <div>
+                  <span className="font-bold text-[#090d16] block">9K</span>
+                  <span className="text-[9px] text-slate-400">Impressions</span>
+                </div>
+                <div>
+                  <span className="font-bold text-[#090d16] block">100</span>
+                  <span className="text-[9px] text-slate-400">Clicks</span>
+                </div>
+                <div>
+                  <span className="font-bold text-[#090d16] block">50</span>
+                  <span className="text-[9px] text-slate-400">Leads</span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between text-[11px] pt-1 text-slate-500">
+                <span>For <strong>LEADBAY</strong></span>
+                <span className="text-blue-600 font-semibold cursor-pointer">View post ↗</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Post 3: Eric Djavid */}
+          <div className="rounded-3xl bg-white p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div>
+              <div className="flex items-center gap-2.5 mb-3">
+                <img
+                  src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=64&h=64&fit=crop&crop=face"
+                  alt="Eric"
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+                <div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs font-bold text-[#090d16]">Eric Djavid</span>
+                    <span className="w-3.5 h-3.5 rounded bg-[#0a66c2] text-white text-[8px] flex items-center justify-center font-bold">
+                      in
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-slate-400 block">
+                    Sales Leader · B2B · 40K followers
+                  </span>
+                </div>
+              </div>
+
+              <h4 className="text-xs font-bold text-[#090d16] line-clamp-2 leading-snug mb-3">
+                Most sales teams spend 80% of their time on the wrong leads. Here is how I changed that.
+              </h4>
+
+              {/* Graphic thumbnail */}
+              <div className="rounded-xl bg-slate-100 p-3 h-28 flex flex-col items-center justify-center mb-4 text-center">
+                <span className="text-xs font-bold text-slate-800">Lead qualification matrix</span>
+                <span className="text-[10px] text-slate-500">CRM playbook</span>
+              </div>
+            </div>
+
+            <div>
+              <div className="grid grid-cols-3 py-2 border-t border-slate-100 text-center text-[11px] mb-2">
+                <div>
+                  <span className="font-bold text-[#090d16] block">20K</span>
+                  <span className="text-[9px] text-slate-400">Impressions</span>
+                </div>
+                <div>
+                  <span className="font-bold text-[#090d16] block">350</span>
+                  <span className="text-[9px] text-slate-400">Clicks</span>
+                </div>
+                <div>
+                  <span className="font-bold text-[#090d16] block">80</span>
+                  <span className="text-[9px] text-slate-400">Leads</span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between text-[11px] pt-1 text-slate-500">
+                <span>For <strong>LEADBAY</strong></span>
+                <span className="text-blue-600 font-semibold cursor-pointer">View post ↗</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Post 4: Marina Panova */}
+          <div className="rounded-3xl bg-white p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div>
+              <div className="flex items-center gap-2.5 mb-3">
+                <img
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=64&h=64&fit=crop&crop=face"
+                  alt="Marina"
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+                <div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs font-bold text-[#090d16]">Marina Panova</span>
+                    <span className="w-3.5 h-3.5 rounded bg-[#0a66c2] text-white text-[8px] flex items-center justify-center font-bold">
+                      in
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-slate-400 block">
+                    Content Creator · B2B · 34K followers
+                  </span>
+                </div>
+              </div>
+
+              <h4 className="text-xs font-bold text-[#090d16] line-clamp-2 leading-snug mb-3">
+                How I build my 30-day LinkedIn content system, the exact playbook.
+              </h4>
+
+              {/* Graphic thumbnail */}
+              <div className="rounded-xl bg-slate-100 p-3 h-28 flex flex-col items-center justify-center mb-4 text-center">
+                <span className="text-xs font-bold text-slate-800">30-day organic playbook</span>
+                <span className="text-[10px] text-slate-500">Automation breakdown</span>
+              </div>
+            </div>
+
+            <div>
+              <div className="grid grid-cols-3 py-2 border-t border-slate-100 text-center text-[11px] mb-2">
+                <div>
+                  <span className="font-bold text-[#090d16] block">100K</span>
+                  <span className="text-[9px] text-slate-400">Impressions</span>
+                </div>
+                <div>
+                  <span className="font-bold text-[#090d16] block">1,600</span>
+                  <span className="text-[9px] text-slate-400">Clicks</span>
+                </div>
+                <div>
+                  <span className="font-bold text-[#090d16] block">320</span>
+                  <span className="text-[9px] text-slate-400">Leads</span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between text-[11px] pt-1 text-slate-500">
+                <span>For <strong>Abyssale</strong></span>
+                <span className="text-blue-600 font-semibold cursor-pointer">View post ↗</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Bar below posts */}
+        <div className="text-center">
+          <a
+            href="#marketplace"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-sm text-white bg-[#090d16] hover:bg-slate-800 shadow-md transition-all mb-3"
+          >
+            <span>Get started</span>
+            <ArrowRight size={15} />
+          </a>
+          <p className="text-xs text-slate-500">Start free. Pay per post when you&apos;re ready.</p>
+        </div>
+      </section>
+
+      {/* ── 7. Pricing Section (Exact from Screenshots 10 & 11) ─────────── */}
+      <section id="pricing" className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+        <div className="text-left mb-12">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#090d16] tracking-tight mb-3">
+            Pricing.
+          </h2>
+          <p className="text-lg font-bold text-[#090d16] mb-1">
+            Start free. Upgrade when you want your time back.
+          </p>
+          <p className="text-sm text-slate-500">
+            Choose whether you want to run creator campaigns in-house or have Naano operate them.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Card 1: SELF-SERVE */}
+          <div className="rounded-3xl bg-white p-8 border border-slate-200/90 shadow-sm flex flex-col justify-between">
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
+                Self-serve
+              </span>
+              <h3 className="text-2xl font-extrabold text-[#090d16] mb-2">Run it yourself.</h3>
+              <p className="text-xs text-slate-500 mb-6">
+                For teams that want the infrastructure to run creator campaigns in-house.
+              </p>
+
+              <div className="text-4xl font-extrabold text-[#090d16] mb-8">
+                €0 <span className="text-sm font-normal text-slate-400">/ month</span>
+              </div>
+
+              <div className="space-y-4 text-xs text-slate-700 border-t border-slate-100 pt-6 mb-8">
+                <div className="py-2 border-b border-slate-100">Creator marketplace access</div>
+                <div className="py-2 border-b border-slate-100">AI-powered brief creation</div>
+                <div className="py-2 border-b border-slate-100">Track clicks, companies and pipeline</div>
+                <div className="py-2">Automatic creator payouts</div>
+              </div>
+            </div>
+
+            <a
+              href="#marketplace"
+              className="inline-flex items-center gap-1 text-xs font-bold text-[#090d16] hover:text-blue-600 transition-colors"
+            >
+              <span>Start for free</span>
+              <ArrowRight size={13} />
+            </a>
+          </div>
+
+          {/* Card 2: MANAGED CAMPAIGNS */}
+          <div className="rounded-3xl bg-white p-8 border border-slate-200/90 shadow-sm flex flex-col justify-between">
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
+                Managed campaigns
+              </span>
+              <h3 className="text-2xl font-extrabold text-[#090d16] mb-2">Get your time back.</h3>
+              <p className="text-xs text-slate-500 mb-6">
+                For teams that want Naano to operate their creator channel end to end.
+              </p>
+
+              <div className="text-4xl font-extrabold text-[#090d16] mb-8">
+                Custom quote
+              </div>
+
+              <div className="space-y-4 text-xs text-slate-700 border-t border-slate-100 pt-6 mb-8">
+                <div className="py-2 border-b border-slate-100">Campaign strategy and positioning</div>
+                <div className="py-2 border-b border-slate-100">Creator sourcing and coordination</div>
+                <div className="py-2 border-b border-slate-100">Brief creation and campaign launch</div>
+                <div className="py-2">Reporting and optimisation</div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className="w-full py-3.5 px-4 rounded-full text-center font-bold text-xs text-white bg-[#090d16] hover:bg-slate-800 transition-colors"
+            >
+              Book a campaign call →
+            </button>
+          </div>
+        </div>
+
+        <p className="text-center text-xs text-slate-500 mt-6 flex items-center justify-center gap-1.5">
+          <ShieldCheck size={14} className="text-slate-400" />
+          <span>Campaign spend is separate. No lock-in. Cancel anytime.</span>
+        </p>
+      </section>
+
+      {/* ── 8. FAQ Section (Exact from Screenshot 12) ──────────────────── */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-slate-200/60">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          {/* Left Title */}
+          <div className="lg:col-span-5">
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-[#090d16] tracking-tight leading-tight mb-4">
+              Frequently <br />
+              asked <br />
+              questions.
+            </h2>
+            <p className="text-sm text-slate-500 mb-6">
+              Everything you need to know before getting started.
+            </p>
+            <a
+              href="#marketplace"
+              className="text-xs font-bold text-[#090d16] hover:text-blue-600 transition-colors inline-flex items-center gap-1"
+            >
+              <span>Still have questions?</span>
+              <strong className="underline ml-1">Talk to our team →</strong>
+            </a>
+          </div>
+
+          {/* Right Accordions */}
+          <div className="lg:col-span-7 divide-y divide-slate-200/80">
+            {faqs.map((faq, idx) => (
+              <div key={idx} className="py-4">
+                <button
+                  type="button"
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="w-full flex items-center justify-between text-left font-bold text-sm text-[#090d16] hover:text-blue-600 transition-colors py-1 cursor-pointer"
+                >
+                  <span>{faq.q}</span>
+                  <ChevronDown
+                    size={16}
+                    className={`transition-transform duration-200 text-slate-400 ${
+                      openFaq === idx ? 'rotate-180 text-[#090d16]' : ''
+                    }`}
+                  />
+                </button>
+                {openFaq === idx && (
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pt-2.5 pb-1">
+                    {faq.a}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 9. Final CTA Card (Exact from Screenshots 13 & 14) ─────────── */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
+        <span className="text-[11px] font-bold uppercase tracking-widest text-blue-600 block mb-3">
+          Ready to launch?
+        </span>
+        <h2 className="text-3xl sm:text-5xl font-extrabold text-[#090d16] tracking-tight mb-4">
+          Your next creator <br />
+          campaign starts here.
+        </h2>
+        <p className="text-sm sm:text-base text-slate-600 max-w-lg mx-auto mb-10">
+          Get a clear creator strategy, campaign format and estimated budget for your next launch.
+        </p>
+
+        {/* Strategy Session Card */}
+        <div className="rounded-3xl bg-white p-8 sm:p-10 border border-slate-200/90 shadow-xl max-w-lg mx-auto text-left">
+          <div className="flex items-center gap-2 mb-3">
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face"
+              alt="Strategy lead"
+              className="w-8 h-8 rounded-full object-cover"
+            />
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              Campaign strategy call
+            </span>
+          </div>
+
+          <h3 className="text-xl font-bold text-[#090d16] mb-1">30-minute working session</h3>
+          <p className="text-xs text-slate-500 mb-6">
+            Leave with a concrete plan for your next creator campaign.
+          </p>
+
+          <div className="space-y-3 text-xs text-slate-700 border-t border-slate-100 pt-5 mb-8">
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+              <span>Creator strategy</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+              <span>Campaign format</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+              <span>Budget recommendation</span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className="w-full py-3.5 px-4 rounded-full font-bold text-xs text-white bg-[#090d16] hover:bg-slate-800 shadow-md transition-colors text-center"
+          >
+            Book a campaign call →
+          </button>
+          <p className="text-[11px] text-slate-400 text-center mt-3">
+            Pick a time on the next page. Prefer to start yourself?{' '}
+            <a href="#marketplace" className="text-[#090d16] font-bold underline">
+              Start for free →
+            </a>
+          </p>
+        </div>
+
+        <p className="text-xs text-slate-400 text-center mt-10">
+          Trusted by B2B teams building creator-led acquisition.
+        </p>
+      </section>
+
       {/* ── 10. Footer ─────────────────────────────────────────────────── */}
-      <footer className="py-12 border-t border-slate-800 bg-slate-950 text-xs text-slate-400">
+      <footer className="py-12 border-t border-slate-200/80 bg-white text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
-            <div className="col-span-2">
-              <div className="flex items-center gap-2 mb-3">
-                <div
-                  className="w-6 h-6 rounded-lg flex items-center justify-center"
-                  style={{ background: 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' }}
-                >
-                  <Zap size={12} className="text-white" fill="white" />
+            <div className="col-span-2 space-y-3">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-md bg-[#090d16] flex items-center justify-center text-white font-bold text-xs">
+                  n
                 </div>
-                <span className="text-base font-bold text-white tracking-tight">naano</span>
+                <span className="text-base font-bold text-[#090d16]">naano</span>
               </div>
-              <p className="text-xs text-slate-400 max-w-sm mb-4 leading-relaxed">
-                The B2B LinkedIn Creator Performance Platform. Discover vetted voices, book campaigns, and track measurable revenue attribution.
+              <p className="text-xs text-slate-500 max-w-sm leading-relaxed">
+                The B2B LinkedIn Creator Marketplace. Find the creators your buyers already trust, launch campaigns in days, and track the results.
               </p>
-              <div className="flex items-center gap-3 text-slate-400">
-                <span className="hover:text-white cursor-pointer">LinkedIn</span>
-                <span>·</span>
-                <span className="hover:text-white cursor-pointer">Twitter/X</span>
-                <span>·</span>
-                <span className="hover:text-white cursor-pointer">Status</span>
-              </div>
             </div>
 
             <div>
-              <span className="font-semibold text-white block mb-3">Product</span>
+              <span className="font-bold text-[#090d16] block mb-3">Product</span>
               <ul className="space-y-2">
-                <li><a href="#marketplace" className="hover:text-white">Marketplace</a></li>
-                <li><Link href="/campaigns" className="hover:text-white">Campaigns</Link></li>
-                <li><Link href="/campaigns/demo" className="hover:text-white">Live Attribution</Link></li>
-                <li><Link href="/analytics" className="hover:text-white">Analytics</Link></li>
+                <li><a href="#marketplace" className="hover:text-black">Marketplace</a></li>
+                <li><Link href="/campaigns" className="hover:text-black">Campaigns</Link></li>
+                <li><Link href="/campaigns/demo" className="hover:text-black">Live Dashboard</Link></li>
+                <li><Link href="/analytics" className="hover:text-black">Analytics</Link></li>
               </ul>
             </div>
 
             <div>
-              <span className="font-semibold text-white block mb-3">Solutions</span>
+              <span className="font-bold text-[#090d16] block mb-3">Solutions</span>
               <ul className="space-y-2">
-                <li><span className="hover:text-white cursor-pointer">For Companies</span></li>
-                <li><span className="hover:text-white cursor-pointer">For Creators</span></li>
-                <li><span className="hover:text-white cursor-pointer">For Agencies</span></li>
-                <li><a href="#pricing" className="hover:text-white">Pricing</a></li>
+                <li><a href="#marketplace" className="hover:text-black">For companies</a></li>
+                <li><a href="#how-it-works" className="hover:text-black">For creators</a></li>
+                <li><a href="#pricing" className="hover:text-black">For agencies</a></li>
+                <li><a href="#pricing" className="hover:text-black">Pricing</a></li>
               </ul>
             </div>
 
             <div>
-              <span className="font-semibold text-white block mb-3">Legal</span>
+              <span className="font-bold text-[#090d16] block mb-3">Legal</span>
               <ul className="space-y-2">
-                <li><span className="hover:text-white cursor-pointer">Privacy Policy</span></li>
-                <li><span className="hover:text-white cursor-pointer">Terms of Service</span></li>
-                <li><span className="hover:text-white cursor-pointer">Cookie Preferences</span></li>
-                <li><span className="hover:text-white cursor-pointer">Security</span></li>
+                <li><span className="hover:text-black cursor-pointer">Privacy</span></li>
+                <li><span className="hover:text-black cursor-pointer">Terms</span></li>
+                <li><span className="hover:text-black cursor-pointer">Security</span></li>
               </ul>
             </div>
           </div>
 
-          <div className="pt-6 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
-            <div>
-              © {new Date().getFullYear()} Naano Technologies Inc. All rights reserved.
-            </div>
-            <div>
-              Designed for high-growth B2B marketing teams.
-            </div>
+          <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-2">
+            <span>© {new Date().getFullYear()} Naano Technologies. All rights reserved.</span>
+            <span>The B2B LinkedIn Creator Marketplace</span>
           </div>
         </div>
       </footer>
