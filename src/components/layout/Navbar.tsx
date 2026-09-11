@@ -184,8 +184,9 @@ export default function Navbar() {
 
               {/* ⚡ Instant Demo Mode CTA */}
               {!demoActive ? (
-                <button
+                <Link
                   id="nav-demo-mode-btn"
+                  href="/campaigns/demo"
                   onClick={activateDemoMode}
                   className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:scale-105 active:scale-100"
                   style={{
@@ -197,7 +198,7 @@ export default function Navbar() {
                 >
                   <Zap size={13} fill="currentColor" />
                   Instant Demo
-                </button>
+                </Link>
               ) : (
                 <Link
                   href="/campaigns"
@@ -257,8 +258,9 @@ export default function Navbar() {
             ))}
             <div className="pt-2 border-t" style={{ borderColor: 'rgba(45, 63, 92, 0.6)' }}>
               {!demoActive ? (
-                <button
+                <Link
                   id="nav-mobile-demo-btn"
+                  href="/campaigns/demo"
                   onClick={() => { activateDemoMode(); setMobileOpen(false); }}
                   className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold"
                   style={{
@@ -268,7 +270,7 @@ export default function Navbar() {
                 >
                   <Zap size={13} fill="currentColor" />
                   ⚡ Instant Demo Mode
-                </button>
+                </Link>
               ) : (
                 <Link
                   href="/campaigns"
